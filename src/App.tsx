@@ -47,7 +47,7 @@ function App() {
       {/* App Logo - Top Right */}
       <div className="absolute top-6 right-6">
         <img
-          src="/src/alecia-logo-black.png"
+          src="/img/alecia-logo-black.png"
           alt="Alecia Logo"
           className="w-12 h-12"
         />
@@ -68,7 +68,7 @@ function App() {
         aria-label={isButtonAvailable ? 'Start a call with AI Assistant' : 'Call button not available'}
       >
         <img
-          src="/src/model_1.jpeg"
+          src="/img/model_1.jpeg"
           alt="AI Assistant - Click to start call"
           className={`w-full h-full object-cover shadow-lg ${isButtonAvailable ? 'hover-float' : ''}`}
         />
@@ -91,7 +91,7 @@ function App() {
         <p className="text-sm text-gray-600 mb-2">Built by</p>
         <div className="w-24">
           <img
-            src="/src/onesevenlogo.png"
+            src="/img/onesevenlogo.png"
             alt="OneSeven Tech"
             className="w-full"
           />
