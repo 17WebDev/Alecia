@@ -1,6 +1,6 @@
 export const CONFIG = {
   ELEVENLABS_CONVAI: {
-    AGENT_ID: 'rOMT0hJ0kKDDUXApd0Ff',
-    API_KEY: 'sk_7011a5e5cc12711b4064ecdf85e9239d00129d699ef9105e' // Here you must add your API key
+    AGENT_ID: 'h93Ebiy4I83rHClmnuK2',
+    API_KEY: 'sk_54b58ee2d6d9459ac2aaeaa4b68b5416096c35d3fb753e88   ' // Here you must add your API key
   }
 } as const; 
