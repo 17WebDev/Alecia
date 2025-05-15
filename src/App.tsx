@@ -1,17 +1,18 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { CONFIG } from './config';
 
 function App() {
-  const widgetRef = useRef<any>(null);
+  const widgetRef = useRef<HTMLElement | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const [isButtonAvailable, setIsButtonAvailable] = useState(false);
 
   useEffect(() => {
     // Wait for the widget to be loaded and check button availability
     const checkButtonAvailability = () => {
-      const widget = document.querySelector('elevenlabs-convai');
+      const widget = document.querySelector('elevenlabs-convai') as HTMLElement;
       if (widget) {
         widgetRef.current = widget;
-        const startButton = widget.shadowRoot?.querySelector('button[title="Start a call"]');
+        const startButton = widget.shadowRoot?.querySelector('button[title="Start a call"]') as HTMLButtonElement;
         setIsButtonAvailable(!!startButton && !startButton.hasAttribute('disabled'));
       }
     };
@@ -28,7 +29,7 @@ function App() {
   const handleStartCall = () => {
     if (!widgetRef.current || !isButtonAvailable) return;
 
-    const startButton = widgetRef.current.shadowRoot?.querySelector('button[title="Start a call"]');
+    const startButton = widgetRef.current.shadowRoot?.querySelector('button[title="Start a call"]') as HTMLButtonElement;
     if (startButton && !startButton.hasAttribute('disabled')) {
       startButton.click();
       
@@ -39,6 +40,12 @@ function App() {
           containerRef.current?.classList.remove('image-active');
         }, 200);
       }
+    }
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (isButtonAvailable && (e.key === 'Enter' || e.key === ' ')) {
+      handleStartCall();
     }
   };
 
@@ -60,11 +67,7 @@ function App() {
         onClick={handleStartCall}
         role={isButtonAvailable ? 'button' : 'presentation'}
         tabIndex={isButtonAvailable ? 0 : -1}
-        onKeyDown={(e) => {
-          if (isButtonAvailable && (e.key === 'Enter' || e.key === ' ')) {
-            handleStartCall();
-          }
-        }}
+        onKeyDown={handleKeyDown}
         aria-label={isButtonAvailable ? 'Start a call with AI Assistant' : 'Call button not available'}
       >
         <img
@@ -83,7 +86,10 @@ function App() {
 
       {/* Chat Interface */}
       <div className="fixed bottom-4 right-4 z-50">
-        <elevenlabs-convai agent-id="h93Ebiy4I83rHClmnuK2"></elevenlabs-convai>
+        <elevenlabs-convai 
+          agent-id={CONFIG.ELEVENLABS_CONVAI.AGENT_ID}
+          api-key={CONFIG.ELEVENLABS_CONVAI.API_KEY}
+        ></elevenlabs-convai>
       </div>
 
       {/* Built by Logo - Bottom Left */}
